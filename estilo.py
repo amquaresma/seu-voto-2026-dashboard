@@ -28,34 +28,68 @@ h2 { margin-top: 2.6rem !important; }
 .prosa p { font-size: 1.06rem !important; line-height: 1.65 !important; margin: 0 0 0.9rem 0 !important; }
 p.nota { font-size: 0.88rem !important; opacity: 0.72; max-width: 70ch; line-height: 1.5 !important; }
 
-/* Tela da urna */
-.urna {
-  margin: 0.5rem 0 2.2rem 0; padding: 1.3rem 1.5rem 1.4rem;
-  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
-  background: color-mix(in srgb, currentColor 4%, transparent);
-  border-radius: 6px; max-width: 560px;
+/* Urna ilustrativa (animação, não interativa) */
+.urna-wrap { pointer-events: none; user-select: none; cursor: default; margin: 0.4rem 0 0; }
+.urna-corpo {
+  display: grid; grid-template-columns: 1.45fr 1fr; gap: 0.8rem; padding: 0.9rem;
+  border-radius: 12px; border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  background: color-mix(in srgb, currentColor 7%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, currentColor 10%, transparent) inset;
 }
-.urna-cargo { font-size: 1.05rem; font-weight: 600; margin-bottom: 1rem; }
-.urna-linha { display: flex; align-items: center; gap: 1rem; margin: 0.4rem 0; font-size: 0.95rem; }
-.urna-rotulo { width: 4.2rem; opacity: 0.75; }
-.urna-digitos { display: flex; gap: 0.45rem; }
-.urna-digito {
-  width: 2.6rem; height: 3.3rem; border: 2px solid color-mix(in srgb, currentColor 55%, transparent);
-  border-radius: 3px; display: flex; align-items: center; justify-content: center;
+.urna-tela {
+  background: #fbfbf8; color: #1c1f22; border-radius: 6px; padding: 0.75rem 0.8rem 0.6rem;
+  border: 3px solid #3a3d42; font-size: 0.78rem; line-height: 1.3; display: flex; flex-direction: column;
+  min-height: 11.5rem;
 }
-.urna-digito.ativo::after {
-  content: ""; width: 2px; height: 1.7rem; background: currentColor;
-  animation: piscar 1.1s steps(1) infinite;
+.tela-topo { font-size: 0.62rem; letter-spacing: 0.04em; opacity: 0.7; }
+.tela-cargo { font-weight: 700; font-size: 0.95rem; margin: 0.15rem 0 0.7rem; }
+.tela-linha { display: flex; align-items: center; gap: 0.5rem; margin: 0.25rem 0; }
+.tela-rot { width: 3.2rem; flex: none; opacity: 0.8; }
+.tela-digitos { display: flex; gap: 0.25rem; }
+.tela-dig { position: relative; width: 1.45rem; height: 1.85rem; border: 1.5px solid #1c1f22;
+            display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; }
+.tela-dig i { font-style: normal; opacity: 0; }
+.tela-dig.d1 i { animation: urna-d1 9s infinite; }
+.tela-dig.d2 i { animation: urna-d2 9s infinite; }
+.tela-dig.d3 i { animation: urna-d3 9s infinite; }
+.tela-dig.d4 i { animation: urna-d4 9s infinite; }
+.tela-dig.d1::after { content: ""; position: absolute; width: 1.5px; height: 1.1rem; background: #1c1f22;
+                      animation: urna-cursor 9s infinite; }
+.tela-nome { opacity: 0; font-style: italic; animation: urna-nome 9s infinite; }
+.tela-rodape { margin-top: auto; padding-top: 0.5rem; border-top: 1px solid #1c1f2233; font-size: 0.6rem;
+               opacity: 0; animation: urna-nome 9s infinite; }
+.urna-teclado { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; align-content: center; }
+.tecla { background: #2a2c30; color: #f2f2ee; border-radius: 4px; text-align: center; font-size: 0.8rem;
+         font-weight: 600; padding: 0.28rem 0; }
+.tecla.zero { grid-column: 2; }
+.teclas-voto { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; margin-top: 0.3rem; }
+.tecla-voto { border-radius: 4px; text-align: center; font-size: 0.46rem; font-weight: 700; padding: 0.45rem 0;
+              color: #1c1f22; white-space: nowrap; overflow: hidden; }
+.tecla-voto.branco { background: #fbfbf8; }
+.tecla-voto.corrige { background: #f08a4b; animation: urna-aperta 9s infinite; }
+.tecla-voto.confirma { background: #2fbf71; }
+.urna-legenda { font-size: 0.78rem !important; opacity: 0.6; margin: 0.5rem 0 0 !important; text-align: right; }
+@keyframes urna-d1 { 0%, 10% { opacity: 0; } 11%, 68% { opacity: 1; } 70%, 100% { opacity: 0; } }
+@keyframes urna-d2 { 0%, 18% { opacity: 0; } 19%, 68% { opacity: 1; } 70%, 100% { opacity: 0; } }
+@keyframes urna-d3 { 0%, 26% { opacity: 0; } 27%, 68% { opacity: 1; } 70%, 100% { opacity: 0; } }
+@keyframes urna-d4 { 0%, 34% { opacity: 0; } 35%, 68% { opacity: 1; } 70%, 100% { opacity: 0; } }
+@keyframes urna-nome { 0%, 42% { opacity: 0; } 46%, 68% { opacity: 1; } 70%, 100% { opacity: 0; } }
+@keyframes urna-cursor { 0%, 4%, 8%, 74%, 82%, 90%, 98% { opacity: 1; } 2%, 6%, 10.9%, 78%, 86%, 94% { opacity: 0; }
+                         11%, 72% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes urna-aperta { 0%, 58% { transform: none; filter: none; }
+                         61%, 64% { transform: translateY(2px) scale(0.96); filter: brightness(0.82); }
+                         67%, 100% { transform: none; filter: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .tela-dig i, .tela-nome, .tela-rodape { animation: none; opacity: 1; }
+  .tela-dig.d1::after, .tecla-voto.corrige { animation: none; }
+  .tela-dig.d1::after { opacity: 0; }
 }
-.urna-nome { flex: 1; border-bottom: 2px solid color-mix(in srgb, currentColor 30%, transparent); height: 1.4rem; }
-@keyframes piscar { 50% { opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .urna-digito.ativo::after { animation: none; } }
 
 /* Título principal */
 h1.manchete {
   font-family: "Literata", Georgia, serif !important; font-weight: 600 !important;
   font-size: clamp(2.2rem, 5vw, 3.6rem) !important; line-height: 1.08 !important;
-  max-width: 17ch; margin: 0 0 1.1rem 0 !important; padding: 0 !important;
+  max-width: 17ch; margin: 0.2rem 0 1.1rem 0 !important; padding: 0 !important;
 }
 p.linha-fina { font-size: 1.2rem !important; line-height: 1.55 !important; max-width: 52ch;
                opacity: 0.85; margin-bottom: 2.6rem !important; }
@@ -190,14 +224,28 @@ def nota(texto: str):
     html(f'<p class="nota">{escape(texto)}</p>')
 
 
-def urna(cargo: str = "Deputado federal", digitos: int = 4):
-    caixas = "".join(f'<div class="urna-digito{" ativo" if i == 0 else ""}"></div>' for i in range(digitos))
-    html(f"""
-<div class="urna" role="img" aria-label="Tela da urna eletrônica com o número do candidato em branco">
-  <div class="urna-cargo">{escape(cargo)}</div>
-  <div class="urna-linha"><span class="urna-rotulo">Número</span><div class="urna-digitos">{caixas}</div></div>
-  <div class="urna-linha"><span class="urna-rotulo">Nome</span><div class="urna-nome"></div></div>
-</div>""")
+def urna(cargo: str = "Deputado federal"):
+    """
+    Ilustração animada da tela da urna: a pessoa tenta digitar o número, não lembra
+    e aperta CORRIGE. Não é interativa (sem clique) e não usa número de partido real.
+    """
+    digitos = "".join(f'<span class="tela-dig d{i}"><i>?</i></span>' for i in range(1, 5))
+    teclas = "".join(f'<span class="tecla">{n}</span>' for n in range(1, 10)) + '<span class="tecla zero">0</span>'
+    html(f"""<div class="urna-wrap" aria-hidden="true">
+<div class="urna-corpo">
+<div class="urna-tela">
+<div class="tela-topo">SEU VOTO PARA</div>
+<div class="tela-cargo">{escape(cargo)}</div>
+<div class="tela-linha"><span class="tela-rot">Número:</span><span class="tela-digitos">{digitos}</span></div>
+<div class="tela-linha"><span class="tela-rot">Nome:</span><span class="tela-nome">não lembro...</span></div>
+<div class="tela-rodape">Aperte a tecla CORRIGE para reiniciar este voto</div>
+</div>
+<div class="urna-teclado">{teclas}
+<span class="teclas-voto"><span class="tecla-voto branco">BRANCO</span><span class="tecla-voto corrige">CORRIGE</span><span class="tecla-voto confirma">CONFIRMA</span></span>
+</div>
+</div>
+</div>
+<p class="urna-legenda">Animação ilustrativa, não é clicável.</p>""")
 
 
 def barra_html(fracao: float) -> str:
@@ -249,12 +297,11 @@ def favicon():
 
 
 def cabecalho(paginas: list):
-    """Marca à esquerda e menu de páginas à direita (vira uma linha rolável no celular)."""
+    """Nome do site à esquerda e menu de páginas à direita (vira uma linha rolável no celular)."""
     with st.container(key="cabecalho", horizontal=True, vertical_alignment="center",
                       horizontal_alignment="distribute"):
-        logo = " ".join(LOGO_SVG.split())   # numa linha só, para o Markdown não quebrar o bloco
-        html(f'<a class="marca" href="./" target="_self">{logo}<span><span class="marca-nome">Seu voto em 2026'
-             f'</span><span class="marca-sub">Pesquisa sobre memória e escolha do voto</span></span></a>')
+        html('<a class="marca" href="./" target="_self"><span><span class="marca-nome">Seu voto em 2026'
+             '</span><span class="marca-sub">Pesquisa sobre memória e escolha do voto</span></span></a>')
         with st.container(key="menu", horizontal=True, width="content", vertical_alignment="center"):
             for p in paginas:
                 st.page_link(p, label=p.title)

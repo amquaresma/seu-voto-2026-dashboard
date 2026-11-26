@@ -29,10 +29,13 @@ def render():
     nao = df[df["eh_votante"] == "Não votou"]
     inicio, fim = df["carimbo"].min(), df["carimbo"].max()
 
-    # Abertura
-    estilo.urna("Deputado federal")
-    estilo.html(f'<h1 class="manchete">{tx.MANCHETE}</h1>')
-    estilo.html(f'<p class="linha-fina">{tx.LINHA_FINA.format(n=len(df))}</p>')
+    # Abertura: manchete à esquerda, urna ilustrativa ao lado
+    texto, ilustracao = st.columns([3, 2], gap="large", vertical_alignment="center")
+    with texto:
+        estilo.html(f'<h1 class="manchete">{tx.MANCHETE}</h1>')
+        estilo.html(f'<p class="linha-fina">{tx.LINHA_FINA.format(n=len(df))}</p>')
+    with ilustracao:
+        estilo.urna("Deputado federal")
 
     celular = ach.proporcao(df, "celular_x_candidato", ["Pesquisou mais o celular"])
     estilo.html(f'<p class="achado-principal">{ach.frase(ach.POR_ID["celular"], celular)}</p>')
