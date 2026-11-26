@@ -1,0 +1,6 @@
+# CSV original do Forms: contém o comentário removido, não vai para o GitHub
+data/bruto/
+
+__pycache__/
+.venv/
+.streamlit/secrets.toml
