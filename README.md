@@ -1,15 +1,36 @@
 # Seu voto em 2026: o quanto você lembra?
 
-Projeto da disciplina de Ciência de Dados: pesquisa via Google Forms sobre as Eleições 2026 e site-dossiê em Streamlit.
+Pesquisa anônima e apartidária sobre memória, informação e escolha nas Eleições 2026, com análise em Python e site em Streamlit.
+
+Projeto da disciplina Ciência de Dados, Engenharia de Computação, Senac. Autor: Matheus Rodrigues Quaresma.
+
+## Páginas do site
+
+| Página | O que mostra |
+|---|---|
+| Dossiê | Como a pesquisa foi feita e os principais achados, com gráficos e margem de erro |
+| Explorar achados | Monte frases com qualquer pergunta e recorte; ranking dos achados mais fortes |
+| Laboratório | Medidas descritivas por tipo de variável, com fórmula e conta passo a passo |
+| Análises | Antes x depois (Wilcoxon), correlação de Spearman, qui-quadrado e V de Cramér |
+| Metodologia e dados | Questionário, tratamento, limitações e download da base tratada |
 
 ## Estrutura
 
 ```
-config.py                   perguntas, tipos de variável, ordem das opções e recodificações
+app.py                      navegação e rodapé
+paginas/                    uma página do site por arquivo
+config.py                   perguntas, tipos de variável e recodificações
 preparar_dados.py           limpeza, variáveis derivadas e alertas de qualidade
-app.py                      o site (Streamlit)
-data/bruto/                 CSV original do Forms (fica fora do Git)
-data/respostas_limpas.csv   base tratada que o site usa
+estatisticas.py             medidas descritivas, fórmulas e passo a passo
+achados.py                  frases com porcentagem e margem de erro (Wilson, 95%)
+avancado.py                 testes e correlações
+graficos.py                 gráficos (tema claro e escuro)
+estilo.py                   identidade visual e rodapé
+textos.py                   textos do site (edite aqui sem mexer no código)
+comum.py                    carregamento e filtros
+.streamlit/config.toml      tema claro e escuro, fontes
+data/respostas_limpas.csv   base tratada e anonimizada
+data/bruto/                 CSV original do Forms (fora do Git)
 ```
 
 ## Como rodar
@@ -23,16 +44,12 @@ streamlit run app.py
 ## Decisões de tratamento
 
 - Nenhuma resposta excluída (n = 56).
-- 1 comentário da pergunta 26 removido por discurso violento; a pessoa continua na amostra.
-- Respostas digitadas em "Outro" agrupadas na categoria correspondente (ver `RECODIFICAR` em `config.py`).
+- 1 comentário da pergunta aberta removido por discurso violento; a pessoa continua na amostra.
+- Respostas digitadas em "Outro" agrupadas na categoria correspondente.
 - No debate, "Não se aplica" foi tratado como "não assistiu" (a opção "Não assisti" não existia no formulário).
 - Inconsistências só são sinalizadas (colunas `flag_*`), nunca apagadas.
+- Grupos com menos de 5 respostas nunca são exibidos.
 
-## Variáveis derivadas
+## Licença
 
-| Variável | O que é |
-|---|---|
-| `grupo_idade` | 16 a 24 x 25 ou mais (para comparar grupos com n suficiente) |
-| `clarao` | nota do voto depois − nota antes |
-| `celular_x_candidato` | pesquisou mais o celular, igual, ou mais o candidato |
-| `indice_memoria` | 0 a 10, a partir das lembranças de dep. federal, estadual e senadores |
+MIT.
