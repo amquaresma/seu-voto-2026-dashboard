@@ -4,6 +4,13 @@ Pesquisa anônima e apartidária sobre memória, informação e escolha nas Elei
 
 Projeto da disciplina Ciência de Dados, Engenharia de Computação, Senac. Autor: Matheus Rodrigues Quaresma.
 
+## Formulário
+
+As respostas foram coletadas por este formulário do Google, entre 27/10 e 10/11/2026:
+[https://forms.gle/euVqne67TD3kJBKo8](https://forms.gle/euVqne67TD3kJBKo8)
+
+A coleta já foi encerrada. O link fica aqui para quem quiser ver as perguntas exatamente como foram feitas.
+
 ## Páginas do site
 
 | Página | O que mostra |
